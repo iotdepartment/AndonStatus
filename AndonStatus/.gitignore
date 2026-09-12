@@ -1,0 +1,11 @@
+bin/
+obj/
+.vs/
+
+appsettings.Development.json
+
+secrets.json
+
+.vs/
+bin/
+obj/

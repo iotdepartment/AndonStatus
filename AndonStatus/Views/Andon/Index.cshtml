@@ -1,0 +1,71 @@
+﻿@model AndonStatus.Models.AndonRegistro
+
+@{
+    ViewData["Title"] = "Panel Andon";
+
+    // Asignamos clases de Bootstrap y un color de fondo semántico según el estado
+    var (bgClass, iconClass, textEstado) = Model.EstadoId switch
+    {
+        1 => ("bg-danger text-white", "bi-exclamation-triangle-fill", Model.Estado?.Estado1 ?? "ACTIVO"),
+        2 => ("bg-warning text-dark", "bi-tools", Model.Estado?.Estado1 ?? "ATENDIENDO"),
+        3 => ("bg-success text-white", "bi-check-circle-fill", Model.Estado?.Estado1 ?? "RESUELTO"),
+        4 => ("bg-secondary text-white", "bi-x-circle-fill", Model.Estado?.Estado1 ?? "CANCELADO"),
+        _ => ("bg-secondary text-white", "bi-question-circle-fill", "DESCONOCIDO")
+    };
+
+}
+
+
+<!-- Enlace opcional a iconos de Bootstrap por si deseas usarlos -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+
+            <!-- Tarjeta Principal de Andon -->
+            <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
+
+                <!-- Encabezado de la Tarjeta -->
+                <div class="card-header bg-dark text-white text-center py-3">
+                    <h1 class="h4 mb-0 fw-bold tracking-wide">
+                        <i class="bi bi-cpu me-2"></i>Andon 1
+                    </h1>
+                </div>
+
+                <!-- Cuerpo de Estado (Cambia de color dinámicamente) -->
+                <div class="card-body @bgClass text-center py-5 transition-all">
+                    <div class="display-1 mb-3">
+                        <i class="bi @iconClass"></i>
+                    </div>
+                    <p class="text-uppercase fw-semibold small mb-1 tracking-wider opacity-75">Estado Actual</p>
+                    <h2 class="card-title mb-0 fw-bold">
+                        @textEstado
+                    </h2>
+                </div>
+
+                <!-- Pie de Tarjeta con Acción -->
+                <div class="card-footer bg-light p-3 border-top-0">
+                    <form asp-controller="Andon" asp-action="CambiarEstado" method="post" class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg shadow-sm fw-semibold py-2">
+                            @if (Model.EstadoId == 1)
+                            {
+                                <span>Atender Andon</span>
+                            }
+                            else if (Model.EstadoId == 2)
+                            {
+                                <span>Resolver Andon</span>
+                            }
+                            else
+                            {
+                                <span>Reiniciar Andon</span>
+                            }
+                        </button>
+                    </form>
+                </div>
+
+            </div> <!-- /card -->
+
+        </div>
+    </div>
+</div>
