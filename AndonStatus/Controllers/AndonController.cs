@@ -40,8 +40,7 @@ namespace AndonStatus.Controllers
 
             int nuevoEstado = ultimoRegistro.EstadoId switch
             {
-                1 => 2,
-                2 => 3,
+                1 => 3,
                 3 => 1,
                 _ => 1
             };

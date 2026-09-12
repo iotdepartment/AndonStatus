@@ -7,9 +7,7 @@
     var (bgClass, iconClass, textEstado) = Model.EstadoId switch
     {
         1 => ("bg-danger text-white", "bi-exclamation-triangle-fill", Model.Estado?.Estado1 ?? "ACTIVO"),
-        2 => ("bg-warning text-dark", "bi-tools", Model.Estado?.Estado1 ?? "ATENDIENDO"),
         3 => ("bg-success text-white", "bi-check-circle-fill", Model.Estado?.Estado1 ?? "RESUELTO"),
-        4 => ("bg-secondary text-white", "bi-x-circle-fill", Model.Estado?.Estado1 ?? "CANCELADO"),
         _ => ("bg-secondary text-white", "bi-question-circle-fill", "DESCONOCIDO")
     };
 
@@ -48,24 +46,13 @@
                 <div class="card-footer bg-light p-3 border-top-0">
                     <form asp-controller="Andon" asp-action="CambiarEstado" method="post" class="d-grid">
                         <button type="submit" class="btn btn-primary btn-lg shadow-sm fw-semibold py-2">
-                            @if (Model.EstadoId == 1)
-                            {
-                                <span>Atender Andon</span>
-                            }
-                            else if (Model.EstadoId == 2)
-                            {
-                                <span>Resolver Andon</span>
-                            }
-                            else
-                            {
-                                <span>Reiniciar Andon</span>
-                            }
+                            @(Model.EstadoId == 1 ? "Resolver Andon" : "Activar Andon")
                         </button>
                     </form>
                 </div>
 
             </div> <!-- /card -->
-
+            @* d *@
         </div>
     </div>
 </div>
